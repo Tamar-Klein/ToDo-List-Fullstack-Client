@@ -12,7 +12,7 @@ export default {
 
   // הוספת משימה
   addTask: async (name) => {
-    console.log("addTask", name);
+  
     const result = await axios.post(`${apiUrl}/tasks`, {
       name: name,
       isComplete: false
@@ -22,7 +22,7 @@ export default {
 
   // שינוי סטטוס משימה
   setCompleted: async (id, isComplete) => {
-    console.log("setCompleted", { id, isComplete });
+   
     const result = await axios.put(`${apiUrl}/tasks/${id}`, {
       id,
       isComplete,
@@ -33,7 +33,7 @@ export default {
 
   // מחיקת משימה
   deleteTask: async (id) => {
-    console.log("deleteTask", id);
+    
     const result = await axios.delete(`${apiUrl}/tasks/${id}`);
     return result.data;
   }
