@@ -1,0 +1,367 @@
+/* ============================
+   Todo App — Modern Glass UI
+   Complete CSS (light + dark)
+   ============================ */
+
+/* ---------- :root variables ---------- */
+:root{
+  --bg-1: #eaf2ff;
+  --bg-2: #fdf7ff;
+  --accent: #3b82f6;      /* blue */
+  --accent-2: #06b6d4;    /* teal */
+  --muted: #8b9aa8;
+  --text: #0f1724;
+  --card-bg: rgba(255,255,255,0.55);
+  --card-border: rgba(255,255,255,0.6);
+  --glass-blur: 12px;
+  --radius: 16px;
+  --shadow-1: 0 10px 30px rgba(15,23,36,0.08);
+  --shadow-2: 0 6px 18px rgba(2,6,23,0.06);
+  --danger: #ef4444;
+  --success: #10b981;
+  --transition: 220ms cubic-bezier(.2,.9,.3,1);
+}
+
+/* ---------- Reset & base ---------- */
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{height:100%}
+body{
+  font-family: 'Poppins', system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+  background: linear-gradient(135deg,var(--bg-1),var(--bg-2));
+  -webkit-font-smoothing:antialiased;
+  -moz-osx-font-smoothing:grayscale;
+  color:var(--text);
+  display:flex;
+  justify-content:center;
+  padding:64px 20px;
+  min-height:100vh;
+}
+
+/* Limit width for desktop, center */
+.todoapp{
+  width:100%;
+  max-width:640px;
+  background:var(--card-bg);
+  border-radius:calc(var(--radius) + 6px);
+  padding:36px;
+  box-shadow:var(--shadow-1);
+  backdrop-filter: blur(var(--glass-blur)) saturate(1.05);
+  border:1px solid rgba(255,255,255,0.45);
+  position:relative;
+  transition:box-shadow var(--transition), transform var(--transition);
+}
+
+/* subtle floating animation */
+.todoapp:hover{ transform: translateY(-4px); box-shadow: 0 22px 60px rgba(2,6,23,0.12); }
+
+/* ---------- Header / Input ---------- */
+.header{
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  gap:18px;
+  margin-bottom:8px;
+}
+
+.todoapp h1{
+  font-size:56px;
+  line-height:1;
+  font-weight:700;
+  color:var(--accent-2);
+  letter-spacing:1px;
+  margin:0;
+  text-shadow: 0 2px 0 rgba(255,255,255,0.6);
+  font-family: 'Poppins', sans-serif;
+}
+
+/* Input field */
+.new-todo{
+  width:100%;
+  appearance:none;
+  border:1px solid rgba(15,23,36,0.06);
+  background: linear-gradient(180deg, rgba(255,255,255,0.7), rgba(255,255,255,0.55));
+  padding:14px 18px;
+  border-radius:12px;
+  font-size:18px;
+  box-shadow: var(--shadow-2);
+  outline:none;
+  transition: box-shadow var(--transition), transform var(--transition);
+}
+
+.new-todo::placeholder{
+  color:var(--muted);
+  font-weight:300;
+  opacity:0.9;
+}
+
+.new-todo:focus{
+  box-shadow: 0 8px 30px rgba(59,130,246,0.12);
+  transform: translateY(-2px);
+}
+
+/* ---------- Main list ---------- */
+.main{ margin-top: 10px; }
+
+.todo-list{
+  list-style:none;
+  padding:0;
+  margin:0;
+}
+
+/* each task row */
+.todo-list li{
+  display:flex;
+  align-items:center;
+  gap:12px;
+  padding:12px;
+  margin-bottom:12px;
+  border-radius:12px;
+  background: linear-gradient(180deg, rgba(255,255,255,0.85), rgba(255,255,255,0.65));
+  border:1px solid rgba(15,23,36,0.04);
+  transition: transform var(--transition), box-shadow var(--transition), background var(--transition);
+}
+
+/* hover elevate */
+.todo-list li:hover{
+  transform: translateY(-4px);
+  box-shadow: 0 14px 28px rgba(2,6,23,0.06);
+}
+
+/* compact for long text */
+.todo-list li label{
+  flex:1;
+  font-size:18px;
+  color:var(--text);
+  word-break:break-word;
+}
+
+/* completed style */
+.completed{
+  background: linear-gradient(180deg, rgba(245,245,245,0.9), rgba(250,250,250,0.85));
+  opacity:0.95;
+}
+
+.completed label{
+  text-decoration:line-through;
+  color:var(--muted);
+  opacity:0.9;
+}
+
+/* ---------- Checkbox toggle ---------- */
+/* using native checkbox with accent-color for modern browsers */
+.toggle{
+  width:22px;
+  height:22px;
+  cursor:pointer;
+  -webkit-appearance:none;
+  appearance:none;
+  border-radius:6px;
+  border:1px solid rgba(15,23,36,0.08);
+  display:inline-grid;
+  place-items:center;
+  transition: background var(--transition), transform var(--transition), box-shadow var(--transition);
+  background: white;
+  box-shadow: inset 0 -2px 4px rgba(0,0,0,0.03);
+}
+
+.toggle:checked{
+  background: linear-gradient(180deg,var(--accent), var(--accent-2));
+  border: none;
+  color:white;
+  box-shadow: 0 6px 16px rgba(59,130,246,0.18);
+}
+
+/* create checkmark using ::after for consistent look */
+.toggle:after{
+  content: "";
+  width:10px;
+  height:6px;
+  border-left:2px solid transparent;
+  border-bottom:2px solid transparent;
+  transform: rotate(-45deg) scale(0);
+  transition: transform var(--transition);
+}
+
+.toggle:checked:after{
+  content: "";
+  width:10px;
+  height:6px;
+  border-left:2.6px solid rgba(255,255,255,0.95);
+  border-bottom:2.6px solid rgba(255,255,255,0.95);
+  transform: rotate(-45deg) scale(1);
+}
+
+/* ---------- Destroy button (delete) ---------- */
+.destroy{
+  background: none;
+  border: none;
+  cursor:pointer;
+  width:36px;
+  height:36px;
+  display:grid;
+  place-items:center;
+  border-radius:10px;
+  transition: transform var(--transition), background var(--transition), color var(--transition);
+  color:var(--danger);
+  font-size:18px;
+}
+
+/* small icon (X) */
+.destroy::after{
+  content:"✖";
+  display:inline-block;
+  transform:scale(0.95);
+}
+
+/* hover effect */
+.destroy:hover{
+  transform: scale(1.12);
+  background: rgba(239,68,68,0.07);
+}
+
+/* ---------- Toggle-all (optional input + label) ---------- */
+.toggle-all{
+  position:absolute;
+  left:24px;
+  top:24px;
+  opacity:0;
+  pointer-events:none;
+}
+
+/* style label if used */
+.toggle-all + label{
+  position:absolute;
+  left:12px;
+  top:12px;
+  font-size:22px;
+  transform:rotate(90deg);
+  color:var(--muted);
+  cursor:pointer;
+}
+
+/* ---------- Footer: count, filters, clear ---------- */
+.footer{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:12px;
+  margin-top:18px;
+  padding-top:12px;
+  border-top:1px solid rgba(15,23,36,0.04);
+}
+
+.todo-count{ font-size:14px; color:var(--muted); }
+
+.filters{
+  display:flex;
+  gap:8px;
+  list-style:none;
+  padding:0;
+  margin:0;
+}
+
+.filters a{
+  padding:6px 10px;
+  border-radius:10px;
+  cursor:pointer;
+  font-size:14px;
+  color:var(--muted);
+  text-decoration:none;
+  transition: background var(--transition), color var(--transition);
+  border:1px solid transparent;
+}
+
+.filters a:hover{ background: rgba(15,23,36,0.03); color:var(--text); }
+.filters a.selected{ background: rgba(59,130,246,0.08); color:var(--accent); font-weight:600; border-color: rgba(59,130,246,0.08); }
+
+/* clear completed */
+.clear-completed{
+  background:transparent;
+  border:1px solid rgba(15,23,36,0.04);
+  padding:6px 10px;
+  border-radius:10px;
+  cursor:pointer;
+  font-size:13px;
+  color:var(--muted);
+}
+.clear-completed:hover{ background: rgba(15,23,36,0.03); }
+
+/* ---------- Empty state ---------- */
+.empty{
+  text-align:center;
+  color:var(--muted);
+  padding:28px 12px;
+  border-radius:10px;
+  background: linear-gradient(180deg, rgba(255,255,255,0.6), rgba(255,255,255,0.5));
+  border:1px dashed rgba(15,23,36,0.04);
+}
+
+/* ---------- Small screens responsive ---------- */
+@media (max-width:520px){
+  .todoapp{ padding:20px; border-radius:12px; margin: 20px; }
+  .todoapp h1{ font-size:42px; }
+  .new-todo{ font-size:16px; padding:12px; }
+  .todo-list li{ padding:12px; }
+  .todo-list li label{ font-size:16px; }
+  .destroy{ width:32px; height:32px; font-size:16px; }
+}
+
+/* ---------- Dark mode (apply .dark on body or .todoapp) ---------- */
+body.dark, .todoapp.dark {
+  --bg-1: #081126;
+  --bg-2: #0b1220;
+  --accent: #60a5fa;
+  --accent-2: #22c1c3;
+  --muted: #94a3b8;
+  --text: #e6eef8;
+  --card-bg: rgba(9,12,20,0.56);
+  --card-border: rgba(255,255,255,0.04);
+  background: linear-gradient(180deg,#051025,#071229);
+  color:var(--text);
+}
+
+body.dark .todoapp, .todoapp.dark {
+  border:1px solid rgba(255,255,255,0.04);
+  box-shadow: 0 18px 45px rgba(2,6,23,0.6);
+}
+
+body.dark .new-todo{
+  background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+  color:var(--text);
+  border:1px solid rgba(255,255,255,0.02);
+}
+
+body.dark .todo-list li{
+  background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+  border:1px solid rgba(255,255,255,0.02);
+}
+
+/* ---------- micro animations ---------- */
+@keyframes popIn { from{ transform: scale(.98); opacity:0 } to{ transform: scale(1); opacity:1 } }
+.todo-list li{ animation: popIn 180ms ease both; }
+
+/* ---------- Accessibility helpers ---------- */
+.new-todo:focus-visible, .destroy:focus-visible, .clear-completed:focus-visible, .filters a:focus-visible {
+  outline: 3px solid rgba(59,130,246,0.18);
+  outline-offset: 3px;
+  border-radius:8px;
+}
+
+/* ---------- Utility classes ---------- */
+.hidden{ display:none !important; }
+.center{ display:flex; align-items:center; justify-content:center; }
+
+/* ---------- Extra: nice small badges (optional) ---------- */
+.badge {
+  display:inline-block;
+  padding:4px 8px;
+  border-radius:999px;
+  font-size:12px;
+  background: rgba(59,130,246,0.08);
+  color:var(--accent);
+  border:1px solid rgba(59,130,246,0.06);
+}
+
+/* ============================
+   End of CSS
+   ============================ */

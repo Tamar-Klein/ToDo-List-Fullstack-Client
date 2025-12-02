@@ -191,34 +191,30 @@ body{
 /* ---------- Destroy button (delete) - Danger Glow ---------- */
 /* ---------- Destroy button (delete) - Danger Glow (תיקון) ---------- */
 .destroy{
-    /* שינוי: רקע וגבול גלויים תמיד */
-    background: rgba(255,255,255,0.7); 
-    border: 1px solid rgba(15,23,36,0.1);
-    
-    cursor:pointer;
-    width:40px;
-    height:40px;
-    display:grid;
-    place-items:center;
-    border-radius:12px;
-    transition: transform var(--transition), background var(--transition), color var(--transition), box-shadow var(--transition);
-    color:var(--danger); /* צבע ה-X נשאר אדום */
-    font-size:22px; 
+  background: none;
+  border: none;
+  cursor:pointer;
+  width:36px;
+  height:36px;
+  display:grid;
+  place-items:center;
+  border-radius:10px;
+  transition: transform var(--transition), background var(--transition), color var(--transition);
+  color:var(--danger);
+  font-size:18px;
 }
 
-/* hover effect with soft red glow */
+/* small icon (X) */
+.destroy::after{
+  content:"✖";
+  display:inline-block;
+  transform:scale(0.95);
+}
+
+/* hover effect */
 .destroy:hover{
-    /* שינוי: מילוי מלא וריחוף עדין יותר */
-    transform: scale(1.08);
-    background: var(--danger);
-    color: white; /* הופך את ה-X ללבן במעבר עכבר */
-    box-shadow: var(--danger-glow);
-}
-
-/* Dark Mode adjustment for destroy button */
-body.dark .destroy{
-    background: rgba(255,255,255,0.05);
-    border: 1px solid rgba(255,255,255,0.1);
+  transform: scale(1.12);
+  background: rgba(239,68,68,0.07);
 }
 /* Dark Mode hover remains the same from the original glow setup */
 /* ---------- Footer: count, filters, clear ---------- */
